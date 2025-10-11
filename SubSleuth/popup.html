@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SubSleuth</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="icons/icon48.png" alt="logo" class="logo" />
+        <h1>SubSleuth<span style="font-weight:400; font-size:13px; margin-left:5px; opacity:0.6;">subscription tracker</span></h1>
+      </header>
+
+      <section class="summary">
+        <div class="total">Monthly spending <span id="totalMonthly">₹0.00</span></div>
+        <div class="upcoming">
+          <div class="upcoming-header">Upcoming renewals:</div>
+          <ul id="upcomingList"></ul>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: var(--muted); padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.05);">
+          <span style="color: #b91c1c; font-weight: 500;">Highlighted</span> subscriptions are rarely used and may be subscription leaks.
+        </div>
+      </section>
+
+      <section class="add">
+        <h2>Add / Edit</h2>
+        <form id="subForm">
+          <input type="hidden" id="editId" />
+          <label>
+            Name
+            <input id="name" required />
+          </label>
+          <label>
+            Amount (e.g. ₹499.00)
+            <input id="amount" type="number" step="0.01" required />
+          </label>
+          <label>
+            Frequency
+            <select id="frequency">
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </label>
+          <label>
+            Next billing date
+            <input id="nextBilling" type="date" required />
+          </label>
+          <label>
+            Usage
+            <select id="usage">
+              <option value="frequently-used">Frequently Used</option>
+              <option value="rarely-used">Rarely Used</option>
+            </select>
+          </label>
+          <div id="reminderInfo" class="reminderInfo">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block;vertical-align:text-bottom;margin-right:4px">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Reminder will be sent <span id="notifyDaysText">3</span> days before billing
+          </div>
+          <div class="formActions">
+            <button type="submit" id="saveBtn">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:4px;display:inline-block;vertical-align:text-bottom">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Save
+            </button>
+            <button type="button" id="clearBtn">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:4px;display:inline-block;vertical-align:text-bottom">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              Clear
+            </button>
+            <button type="button" id="testReminderBtn">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:4px;display:inline-block;vertical-align:text-bottom">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+              </svg>
+              Test Reminder
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="list">
+        <h2>Your subscriptions</h2>
+        <ul id="subsList"></ul>
+      </section>
+      
+      <section class="settings">
+        <details>
+          <summary>Notification Settings</summary>
+          <div class="settingsContent">
+            <label>
+              Remind me
+              <div class="settingControl">
+                <input id="notifyDays" type="number" min="1" max="30" value="3" style="width:60px;"> 
+                days before billing date
+              </div>
+            </label>
+            <div class="settingActions">
+              <button type="button" id="saveSettingsBtn">Save Settings</button>
+            </div>
+            <div class="settingInfo">
+              <small>Changes will apply to all subscriptions</small>
+            </div>
+          </div>
+        </details>
+      </section>
+      
+      <footer>
+        <small>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:inline-block;vertical-align:text-bottom;margin-right:2px">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+          All data stored locally in your browser
+        </small>
+      </footer>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
